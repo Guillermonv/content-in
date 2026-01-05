@@ -26,6 +26,7 @@ public class InternalOperationService {
 
             NParser.parse(previousOutput,nDto );
             nDto.setExecutionId(execution);
+            nDto.setStatus("initiated");
            // nDto.setCreated(LocalDateTime.now());
            // nDto.setLastUpdated(LocalDateTime.now());
            // nDto.setSubCategory(step.getAgent().getProvider());
