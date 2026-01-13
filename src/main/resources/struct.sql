@@ -1,0 +1,76 @@
+CREATE TABLE `n` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `execution_id` bigint NOT NULL,
+  `title` varchar(250) DEFAULT NULL,
+  `short_description` text,
+  `message` text,
+  `status` varchar(20) DEFAULT NULL,
+  `type` varchar(20) DEFAULT NULL,
+  `sub_type` varchar(20) DEFAULT NULL,
+  `category` varchar(20) DEFAULT NULL,
+  `sub_category` varchar(20) DEFAULT NULL,
+  `image_url` text,
+  `image_prompt` text,
+  `created` datetime DEFAULT NULL,
+  `last_updated` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_n_execution` (`execution_id`),
+  CONSTRAINT `fk_n_execution` FOREIGN KEY (`execution_id`) REFERENCES `executions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+CREATE TABLE `workflows` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+CREATE TABLE steps (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    order_index INT,
+    name VARCHAR(255),
+    operation_type VARCHAR(255), -- text_generation, text_validation, internal_logic
+    prompt MEDIUMTEXT,
+    workflow_id BIGINT NOT NULL,
+    agent_id BIGINT,
+    FOREIGN KEY (workflow_id) REFERENCES workflows(id),
+    FOREIGN KEY (agent_id) REFERENCES agents(id)
+);
+
+CREATE TABLE executions (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    status VARCHAR(50), -- Ej: RUNNING, COMPLETED
+    workflow_id BIGINT NOT NULL,
+    FOREIGN KEY (workflow_id) REFERENCES workflows(id)
+);
+
+CREATE TABLE step_executions (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    status VARCHAR(50),
+    output LONGTEXT,
+    step_id BIGINT NOT NULL,
+    execution_id BIGINT NOT NULL,
+    FOREIGN KEY (step_id) REFERENCES steps(id),
+    FOREIGN KEY (execution_id) REFERENCES executions(id)
+);
+
+CREATE TABLE `agents` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `provider` varchar(100) DEFAULT NULL,
+  `secret` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+CREATE TABLE users (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    scopes TEXT,
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+    created_at DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    updated_at DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3)
+        ON UPDATE CURRENT_TIMESTAMP(3),
+    UNIQUE KEY uk_users_username (username)
+) ENGINE=InnoDB
+  DEFAULT CHARSET=utf8mb4
+  COLLATE=utf8mb4_unicode_ci;
