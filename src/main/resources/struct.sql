@@ -44,15 +44,21 @@ CREATE TABLE executions (
     FOREIGN KEY (workflow_id) REFERENCES workflows(id)
 );
 
-CREATE TABLE step_executions (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    status VARCHAR(50),
-    output LONGTEXT,
-    step_id BIGINT NOT NULL,
-    execution_id BIGINT NOT NULL,
-    FOREIGN KEY (step_id) REFERENCES steps(id),
-    FOREIGN KEY (execution_id) REFERENCES executions(id)
-);
+CREATE TABLE `step_executions` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `status` varchar(255) DEFAULT NULL,
+  `output` longtext,
+  `step_id` bigint NOT NULL,
+  `execution_id` bigint NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `step_id` (`step_id`),
+  KEY `execution_id` (`execution_id`),
+  CONSTRAINT `step_executions_ibfk_1` FOREIGN KEY (`step_id`) REFERENCES `steps` (`id`),
+  CONSTRAINT `step_executions_ibfk_2` FOREIGN KEY (`execution_id`) REFERENCES `executions` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=976 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
 
 CREATE TABLE `agents` (
   `id` bigint NOT NULL AUTO_INCREMENT,

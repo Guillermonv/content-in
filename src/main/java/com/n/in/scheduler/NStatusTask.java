@@ -32,7 +32,7 @@ public class NStatusTask {
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
-   // @Scheduled(fixedRate = 1000)
+    @Scheduled(fixedRate = 1000)
     public void createNs() throws Exception {
         workflowExecutionService.executeWorkflow(1L);
         log.info("N Created at {}", dateFormat.format(System.currentTimeMillis()));

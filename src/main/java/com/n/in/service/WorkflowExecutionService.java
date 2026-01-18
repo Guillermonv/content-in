@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Comparator;
 
 @Service
@@ -52,6 +53,8 @@ public class WorkflowExecutionService {
             stepExec.setExecution(execution);
             stepExec.setStep(step);
             stepExec.setStatus("RUNNING");
+            stepExec.setCreatedAt(LocalDateTime.now());
+            stepExec.setUpdatedAt(LocalDateTime.now());
             stepExec = stepExecutionRepository.save(stepExec);
 
             try {

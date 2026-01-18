@@ -5,6 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
+
 @Entity
 @Table(name = "step_executions")
 @Data
@@ -28,5 +32,11 @@ public class StepExecution {
 
     @Column(columnDefinition = "LONGTEXT")
     private String output;
+
+    @JoinColumn(name = "created_at")
+    private LocalDateTime createdAt;
+
+    @JoinColumn(name = "updated_at")
+    private LocalDateTime updatedAt;
 
 }
