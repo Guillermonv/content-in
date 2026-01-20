@@ -79,6 +79,8 @@ public class WorkflowExecutionService {
             stepExecutionRepository.save(stepExec);
         }
 
+        execution.setCreatedAt(LocalDateTime.now());
+        execution.setUpdatedAt(LocalDateTime.now());
         execution.setStatus(StatusEnum.DONE.getDescription());
         return executionRepository.save(execution);
     }
