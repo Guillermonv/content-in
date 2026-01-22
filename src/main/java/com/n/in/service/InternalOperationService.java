@@ -11,35 +11,36 @@ import com.n.in.utils.NParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
 @Component
 public class InternalOperationService {
-        @Autowired
-        private NRepository nRepository;
+    @Autowired
+    private  NRepository nRepository;
 
-        @Autowired
-        private NMapper nMapper;
+    @Autowired
+    private NMapper nMapper;
 
-        public Object handleInternal(Long execution, Step step, String previousOutput) throws JsonProcessingException {
-            NDto nDto = new NDto();
+    public Object handleInternal(Long execution, Step step, String previousOutput)  {
+        NDto nDto = new NDto();
 
-            NParser.parse(previousOutput,nDto );
-            nDto.setExecutionId(execution);
-            nDto.setStatus("initiated");
-           // nDto.setCreated(LocalDateTime.now());
-           // nDto.setLastUpdated(LocalDateTime.now());
-           // nDto.setSubCategory(step.getAgent().getProvider());
-           // nDto.setCategory(step.getOperationType());
-            nRepository.save(nMapper.toEntity(nDto));
+        NParser.parse(previousOutput, nDto);
+        nDto.setExecutionId(execution);
+        nDto.setStatus("initiated");
+        nDto.setCreated(LocalDateTime.now());
+        nDto.setLastUpdated(LocalDateTime.now());
+        nDto.setSubCategory(step.getAgent().getProvider());
+        nDto.setCategory(step.getOperationType());
+        nRepository.save(nMapper.toEntity(nDto));
 
-            return Map.of(
-                    "step_prompt", step.getPrompt(),
-                    "previous_output", previousOutput,
-                    "combined", step.getPrompt() + " | " + previousOutput,
-                    "result","Stored"
-            );
-        }
+        return Map.of(
+                "step_prompt", step.getPrompt(),
+                "previous_output", previousOutput,
+                "combined", step.getPrompt() + " | " + previousOutput,
+                "result", "Stored"
+        );
+    }
 }
 
 
