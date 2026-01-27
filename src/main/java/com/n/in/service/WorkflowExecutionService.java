@@ -8,7 +8,7 @@ import com.n.in.model.Workflow;
 import com.n.in.model.repository.ExecutionRepository;
 import com.n.in.model.repository.StepExecutionRepository;
 import com.n.in.model.repository.WorkflowRepository;
-import com.n.in.provider.gemini.response.GeminiResponse;
+import com.n.in.provider.gemini.model.response.GeminiResponse;
 import com.n.in.strategy.IAClientFactory;
 import com.n.in.strategy.IAClientStrategy;
 import com.n.in.utils.enums.ProviderEnum;
@@ -107,11 +107,8 @@ public class WorkflowExecutionService {
         temp.setOperationType(step.getOperationType());
 
         IAClientStrategy strategy = clientFactory.getStrategy(step.getAgent());
+
         Object result = strategy.generate(temp);
-        if(ProviderEnum.GEMINI.getName().equalsIgnoreCase(step.getAgent().getProvider())) {
-            GeminiResponse response = (GeminiResponse) result;
-            result = response.getCandidates().get(0).getContent().getParts().get(0).getText();
-        }
         return result != null ? result.toString() : "";
     }
 

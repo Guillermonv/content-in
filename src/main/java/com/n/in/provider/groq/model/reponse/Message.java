@@ -1,13 +1,11 @@
-package com.n.in.provider.openrouter.reponse;
+package com.n.in.provider.groq.model.reponse;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ChoiceDto {
-    private Integer index;
-    private MessageDto message;
-
-
+public class Message {
+    private String role;
+    private String content;
 }

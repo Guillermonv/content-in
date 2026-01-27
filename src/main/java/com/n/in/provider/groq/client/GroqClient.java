@@ -1,8 +1,8 @@
 package com.n.in.provider.groq.client;
 
 import com.n.in.provider.groq.config.GroqProperties;
-import com.n.in.provider.groq.request.GroqRequest;
-import com.n.in.provider.groq.reponse.GroqResponse;
+import com.n.in.provider.groq.model.request.GroqRequest;
+import com.n.in.provider.groq.model.reponse.GroqResponse;
 import com.n.in.provider.client.RestClientTemplate;
 import org.springframework.stereotype.Service;
 

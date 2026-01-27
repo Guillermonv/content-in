@@ -1,4 +1,4 @@
-package com.n.in.strategy;
+package com.n.in.provider.groq;
 
 
 import com.n.in.model.Agent;
@@ -6,8 +6,9 @@ import com.n.in.model.dto.NDto;
 import com.n.in.model.Step;
 import com.n.in.model.repository.AgentRepository;
 import com.n.in.provider.groq.client.GroqClient;
-import com.n.in.provider.groq.reponse.Message;
-import com.n.in.provider.groq.request.GroqRequest;
+import com.n.in.provider.groq.model.reponse.Message;
+import com.n.in.provider.groq.model.request.GroqRequest;
+import com.n.in.strategy.IAClientStrategy;
 import com.n.in.utils.enums.ProviderEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class GroqStrategy implements IAClientStrategy {
+public class GroqService implements IAClientStrategy {
 
     @Autowired
     private GroqClient groqClient;

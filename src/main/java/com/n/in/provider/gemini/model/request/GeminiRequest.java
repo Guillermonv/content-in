@@ -1,4 +1,4 @@
-package com.n.in.provider.gemini.request;
+package com.n.in.provider.gemini.model.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;

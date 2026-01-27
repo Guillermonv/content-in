@@ -1,12 +1,9 @@
 package com.n.in.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.n.in.model.Step;
 import com.n.in.model.dto.NDto;
 import com.n.in.model.mapper.NMapper;
 import com.n.in.model.repository.NRepository;
-import com.n.in.provider.gemini.response.GeminiResponse;
 import com.n.in.utils.NParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

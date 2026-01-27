@@ -1,4 +1,4 @@
-package com.n.in.provider.openrouter.reponse;
+package com.n.in.provider.groq.model.reponse;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
@@ -7,11 +7,11 @@ import java.util.List;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class OpenRouterResponse {
+public class GroqResponse{
 
     private String id;
     private String object;
     private Long created;
     private String model;
-    private List<ChoiceDto> choices;
+    private List<Choice> choices;
 }
