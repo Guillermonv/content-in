@@ -9,7 +9,9 @@ public enum StatusEnum {
 
     PENDING(1, "PENDING"),
     DONE(2, "DONE"),
-    REJECTED(3, "REJECTED");
+    REJECTED(3, "REJECTED"),
+
+    ERROR(4, "ERROR");
 
     private final int id;
     private final String description;

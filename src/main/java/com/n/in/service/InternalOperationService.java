@@ -24,11 +24,9 @@ public class InternalOperationService {
 
         NParser.parse(previousOutput, nDto);
         nDto.setExecutionId(execution);
-        nDto.setStatus("initiated");
         nDto.setCreated(LocalDateTime.now());
         nDto.setLastUpdated(LocalDateTime.now());
-        nDto.setSubCategory(step.getAgent().getProvider());
-        nDto.setCategory(step.getOperationType());
+        nDto.setCategory(step.getWorkflows().getCategory());
         nRepository.save(nMapper.toEntity(nDto));
 
         return Map.of(

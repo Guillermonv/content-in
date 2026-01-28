@@ -21,4 +21,6 @@ public class Workflow {
 
     @OneToMany(mappedBy = "workflows", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Step> steps;
+
+    private String category;
 }

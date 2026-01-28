@@ -60,29 +60,35 @@ public class WorkflowExecutionService {
             try {
                 String output = runStep(stepExec.getExecution().getId(),step, previousOutput);
                 stepExec.setOutput(output);
-
-                String status = getCurrentStepStatus(output);
-                stepExec.setStatus(status);
-                if(status.equalsIgnoreCase(StatusEnum.REJECTED.getDescription())){
-                    break;
-                }
                 previousOutput = output;
+
+                if(stepExec.getStatus().equalsIgnoreCase(StatusEnum.ERROR.getDescription())){
+                    execution.setStatus(StatusEnum.ERROR.getDescription());
+                    stepExec.setUpdatedAt(LocalDateTime.now());
+                    executionRepository.save(execution);
+                    return null;
+
+                }else{
+                    stepExec.setStatus(StatusEnum.DONE.getDescription());
+                    stepExecutionRepository.save(stepExec);
+                    execution.setCreatedAt(LocalDateTime.now());
+                    execution.setUpdatedAt(LocalDateTime.now());
+                    execution.setStatus(StatusEnum.DONE.getDescription());
+                    executionRepository.save(execution);
+                }
 
             } catch (Exception e) {
 
                 stepExec.setOutput("ERROR: " + e.getMessage());
                 stepExec.setStatus("ERROR");
-
-                break;
+                execution.setStatus(StatusEnum.ERROR.getDescription());
+                stepExec.setUpdatedAt(LocalDateTime.now());
+                executionRepository.save(execution);
+                return null;
             }
 
-            stepExecutionRepository.save(stepExec);
         }
-
-        execution.setCreatedAt(LocalDateTime.now());
-        execution.setUpdatedAt(LocalDateTime.now());
-        execution.setStatus(StatusEnum.DONE.getDescription());
-        return executionRepository.save(execution);
+      return null;
     }
 
     private String runStep(Long execution, Step step, String previousOutput) throws JsonProcessingException {
@@ -110,13 +116,6 @@ public class WorkflowExecutionService {
 
         Object result = strategy.generate(temp);
         return result != null ? result.toString() : "";
-    }
-
-    private String getCurrentStepStatus(String output) {
-        if(output.startsWith(StatusEnum.REJECTED.getDescription())){
-            StatusEnum.REJECTED.getDescription();
-        }
-        return StatusEnum.DONE.getDescription();
     }
 
 }
