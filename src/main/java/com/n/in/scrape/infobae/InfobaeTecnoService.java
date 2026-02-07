@@ -6,6 +6,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,7 +61,6 @@ public class InfobaeTecnoService {
 
             String titulo = textOrEmpty(doc.selectFirst("h1"));
             String bajada = textOrEmpty(doc.selectFirst("h2"));
-            String fecha  = textOrEmpty(doc.selectFirst("time"));
 
             Element body = doc.selectFirst("div.article-body");
             StringBuilder contenido = new StringBuilder();
@@ -71,12 +71,11 @@ public class InfobaeTecnoService {
                 }
             }
 
+
             return new StringBuilder()
-                    .append("📰 Título: ").append(titulo).append("\n")
-                    .append("📝 Bajada: ").append(bajada).append("\n")
-                    .append("📅 Fecha: ").append(fecha).append("\n")
-                    .append("📄 Contenido:\n")
-                    .append(contenido)
+                    .append("Título: ").append(titulo).append("\n")
+                    .append("Bajada: ").append(bajada).append("\n")
+                    .append("Fecha: ").append(LocalDateTime.now()).append("\n")
                     .toString();
 
         } catch (Exception e) {
