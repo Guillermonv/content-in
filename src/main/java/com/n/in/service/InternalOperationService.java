@@ -1,10 +1,10 @@
 package com.n.in.service;
 
 import com.n.in.model.Step;
-import com.n.in.model.dto.NDto;
+import com.n.in.model.dto.ContentDto;
 import com.n.in.model.mapper.NMapper;
 import com.n.in.model.repository.ContentRepository;
-import com.n.in.utils.NParser;
+import com.n.in.utils.ContentParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,14 +20,15 @@ public class InternalOperationService {
     private NMapper nMapper;
 
     public Object handleInternal(Long execution, Step step, String previousOutput)  {
-        NDto nDto = new NDto();
+        ContentDto contentDto = new ContentDto();
 
-        NParser.parse(previousOutput, nDto);
-        nDto.setExecutionId(execution);
-        nDto.setCreated(LocalDateTime.now());
-        nDto.setLastUpdated(LocalDateTime.now());
-        nDto.setCategory(step.getWorkflows().getCategory());
-        contentRepository.save(nMapper.toEntity(nDto));
+        ContentParser.parse(previousOutput, contentDto);
+        contentDto.setExecutionId(execution);
+        contentDto.setCreated(LocalDateTime.now());
+        contentDto.setLastUpdated(LocalDateTime.now());
+        contentDto.setCategory(step.getWorkflows().getCategory());
+        contentDto.setSubCategory(step.getWorkflows().getSubCategory());
+        contentRepository.save(nMapper.toEntity(contentDto));
 
         return Map.of(
                 "step_prompt", step.getPrompt(),

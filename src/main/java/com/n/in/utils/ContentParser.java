@@ -1,15 +1,15 @@
 package com.n.in.utils;
 
-import com.n.in.model.dto.NDto;
+import com.n.in.model.dto.ContentDto;
 
-public class NParser {
+public class ContentParser {
 
     private static final String TITLE = "Title:";
     private static final String SHORT = "Short Description:";
     private static final String MESSAGE = "Message:";
     private static final String IMAGE = "Image Prompt:";
 
-    public static void parse(String raw, NDto dto) {
+    public static void parse(String raw, ContentDto dto) {
 
         String title = extractBetween(raw, TITLE, SHORT);
         String shortDescription = extractBetween(raw, SHORT, MESSAGE);

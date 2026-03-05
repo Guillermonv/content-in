@@ -2,7 +2,7 @@ package com.n.in.provider.groq;
 
 
 import com.n.in.model.Agent;
-import com.n.in.model.dto.NDto;
+import com.n.in.model.dto.ContentDto;
 import com.n.in.model.Step;
 import com.n.in.model.repository.AgentRepository;
 import com.n.in.provider.groq.client.GroqClient;
@@ -27,7 +27,7 @@ public class GroqService implements IAClientStrategy {
     private AgentRepository agentRepository;
 
     @Override
-    public NDto generate(Step step) {
+    public ContentDto generate(Step step) {
         GroqRequest req = new GroqRequest();
         req.setModel("llama-3.3-70b-versatile");
 
@@ -39,7 +39,7 @@ public class GroqService implements IAClientStrategy {
 
         var res = groqClient.sendPrompt(req,agent.get().getSecret());
 
-        return NDto.builder()
+        return ContentDto.builder()
                 .type("IA")
                 .subType("GROQ")
                 .status("initiated")

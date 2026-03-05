@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import lombok.*;
 
 @Entity
-@Table(name = "n")
+@Table(name = "content")
 @Data
 @Builder
 @NoArgsConstructor
@@ -37,9 +37,6 @@ public class Content {
 
     @Column(length = 20)
     private String type;
-
-    @Column(name = "sub_type", length = 20)
-    private String subType;
 
     @Column(length = 20)
     private String category;

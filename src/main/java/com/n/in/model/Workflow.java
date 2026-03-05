@@ -15,7 +15,7 @@ import java.util.List;
 public class Workflow {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     private String name;
 
@@ -23,4 +23,10 @@ public class Workflow {
     private List<Step> steps;
 
     private String category;
+
+    @Column(name="sub_category")
+    private String subCategory;
+
+
+    private boolean enabled;
 }

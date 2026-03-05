@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class NDto {
+public class ContentDto {
 
     private Long id;
     private Long executionId;

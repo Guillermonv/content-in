@@ -1,22 +1,21 @@
 package com.n.in.model.mapper;
 
 
-import com.n.in.model.dto.NDto;
+import com.n.in.model.dto.ContentDto;
 import com.n.in.model.Content;
 import org.springframework.stereotype.Component;
 
 @Component
 public class NMapper {
 
-    public NDto toDto(Content e) {
+    public ContentDto toDto(Content e) {
         if (e == null) return null;
-        return NDto.builder()
+        return ContentDto.builder()
                 .id(e.getId())
                 .shortDescription(e.getShortDescription())
                 .status(e.getStatus())
                 .message(e.getMessage())
                 .type(e.getType())
-                .subType(e.getSubType())
                 .category(e.getCategory())
                 .subCategory(e.getSubCategory())
                 .imageUrl(e.getImageUrl())
@@ -26,7 +25,7 @@ public class NMapper {
                 .build();
     }
 
-    public Content toEntity(NDto d) {
+    public Content toEntity(ContentDto d) {
         if (d == null) return null;
         return Content.builder()
                 .id(d.getId())
@@ -36,7 +35,6 @@ public class NMapper {
                 .shortDescription(d.getShortDescription())
                 .message(d.getMessage())
                 .type(d.getType())
-                .subType(d.getSubType())
                 .category(d.getCategory())
                 .subCategory(d.getSubCategory())
                 .imagePrompt(d.getImagePrompt())

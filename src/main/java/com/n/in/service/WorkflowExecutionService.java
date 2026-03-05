@@ -35,7 +35,7 @@ public class WorkflowExecutionService {
     private final InfobaeTecnoService infobaeScraperService;
 
     @Transactional
-    public Execution executeWorkflow(Long workflowId,String output) {
+    public void executeWorkflow(Integer workflowId,String output) {
 
         Workflow workflow = workflowRepository.findById(workflowId)
                 .orElseThrow(() -> new RuntimeException("Workflow no encontrado"));
@@ -67,7 +67,7 @@ public class WorkflowExecutionService {
                     execution.setStatus(StatusEnum.ERROR.getDescription());
                     stepExec.setUpdatedAt(LocalDateTime.now());
                     executionRepository.save(execution);
-                    return null;
+                    return;
                 }else{
                     stepExec.setStatus(StatusEnum.DONE.getDescription());
                     stepExecutionRepository.save(stepExec);
@@ -83,11 +83,11 @@ public class WorkflowExecutionService {
                 execution.setStatus(StatusEnum.MANUAL_REVIEW.getDescription());
                 stepExec.setUpdatedAt(LocalDateTime.now());
                 executionRepository.save(execution);
-                return null;
+                return;
             }
 
         }
-      return null;
+      return;
     }
 
     private String runStep(Long execution, Step step, String previousOutput) throws Exception {
