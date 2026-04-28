@@ -1,20 +1,21 @@
 CREATE TABLE `content` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `execution_id` bigint NOT NULL,
+  `execution_id` bigint DEFAULT NULL,
   `title` varchar(250) DEFAULT NULL,
   `short_description` text,
   `message` text,
   `status` varchar(20) DEFAULT NULL,
   `category` varchar(20) DEFAULT NULL,
   `sub_category` varchar(20) DEFAULT NULL,
-  `image_url` text,
+  `image_url` varchar(255) DEFAULT NULL,
   `image_prompt` text,
-  `created` datetime DEFAULT NULL,
-  `last_updated` datetime DEFAULT NULL,
+  `created` datetime DEFAULT CURRENT_TIMESTAMP,
+  `last_updated` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `slug` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_n_execution` (`execution_id`),
   CONSTRAINT `fk_n_execution` FOREIGN KEY (`execution_id`) REFERENCES `executions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+) ENGINE=InnoDB AUTO_INCREMENT=293 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 
 CREATE TABLE `workflows` (
   `id` bigint NOT NULL AUTO_INCREMENT,
