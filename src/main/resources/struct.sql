@@ -13,9 +13,10 @@ CREATE TABLE `content` (
   `last_updated` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `slug` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_n_execution` (`execution_id`),
-  CONSTRAINT `fk_n_execution` FOREIGN KEY (`execution_id`) REFERENCES `executions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=293 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+  KEY `fk_n_execution` (`execution_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=295 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+
 
 CREATE TABLE `workflows` (
   `id` bigint NOT NULL AUTO_INCREMENT,
